@@ -16,5 +16,8 @@ public class Muret{
 		return false;
 	}
 
-	//Méthodes pour rendre le mur visible/invisible
+	public void setVisible(boolean etat) {
+		this.visible = etat;
+	}
+
 }
