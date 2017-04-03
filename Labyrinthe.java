@@ -16,6 +16,8 @@ public class Labyrinthe {
 
 		joueur = new Personnage((double)positionx+0.5,(double)positiony+0.5,vies);
 
+		System.out.println("Position x"+ ((double)positionx+0.5));
+
 		liste = new ListeMuret();
 		// Position murets verticaux
 		for (int x = 1;x<l ;x++) {
@@ -35,17 +37,47 @@ public class Labyrinthe {
 				}
 			}
 		}
-
-
-		//À faire
 	}
 
 	public String toString(){
-		//À faire
+
+		String muretH = "-------";
+		String blank = "       ";
+
+
+		String out="";
+		for (int y = 0;y<=h;y++) {
+
+			for (int x = 0;x<l;x++) {
+				if(y==0|| y==h){
+					out+= ( ((x==0)?"+":"") + muretH + ((x==l-1)?"+":"-"));
+				}
+				else{
+					out+="";
+				}
+				
+			}
+			out+="\n";
+
+			if(y !=h ){
+				for (int v = 0;v<3 ;v++ ) {
+					for (int xj = 0;xj<l;xj++) {
+						out+= ( ((xj==0)?"|":"") + blank + ((xj==l-1)?"|":" "));	
+					}
+					out+="\n";	
+				}
+			}
+
+			//out+="\n";
+			
+		}
+		return out;
+
 	}
 
 	public boolean deplace(char direction){
 		//À faire
+		return true;
 	}
 
 

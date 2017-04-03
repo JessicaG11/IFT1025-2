@@ -1,6 +1,6 @@
 public class NoeudMuret{
-	private Muret valeur;
-	private NoeudMuret prochain;
+	public Muret valeur;
+	public NoeudMuret prochain;
 
 	public NoeudMuret(Muret v, NoeudMuret p){
 		valeur = v;

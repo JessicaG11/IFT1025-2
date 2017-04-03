@@ -23,7 +23,20 @@ public class ListeMuret{
 		NoeudMuret n = premier;
 		while (n != null && n.valeur != m)
 			n = n.prochain; 
-		return n;
+		return n.valeur;
+	}
+
+ 	// Nous retourne la longueur de notre liste
+	public int longueur(){
+		NoeudMuret n = premier;
+		int nb=0;
+		if(premier==null) 
+			return 0;
+		while(n!=null){
+			nb++;
+			n=n.prochain;
+		}
+		return nb;
 	}
 
 }

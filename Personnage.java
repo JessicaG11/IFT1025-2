@@ -9,7 +9,7 @@ public class Personnage{
 		vie = vie;
 	}
 
-	public void dessine(Graphics g, int x1, int y1, int x2, int y2){
+	//public void dessine(Graphics g, int x1, int y1, int x2, int y2){
 		//À faire
-	}
+	//}
 }
