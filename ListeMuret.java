@@ -21,9 +21,10 @@ public class ListeMuret{
 	// Cherche à traver notre liste pour un muret
 	public Muret chercherMuret(Muret m) {
 		NoeudMuret n = premier;
-		while (n != null && n.valeur != m)
-			n = n.prochain; 
-		return n.valeur;
+		while (n != null && !(n.valeur.equals(m))){
+			n = n.prochain;
+		}
+		return ((n == null)?(null):(n.valeur));
 	}
 
  	// Nous retourne la longueur de notre liste
@@ -38,5 +39,19 @@ public class ListeMuret{
 		}
 		return nb;
 	}
+
+	// Print
+	public void printMuret() {
+		NoeudMuret n = premier;
+		if(premier == null)
+			System.out.println("Vide");
+		else{
+			while (n != null){
+				System.out.println("x: " + n.valeur.x + " y: "+ n.valeur.y + " horizontal: " + n.valeur.horizontal);
+				n = n.prochain; 
+			}
+		}
+	}
+
 
 }
