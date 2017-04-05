@@ -1,9 +1,9 @@
 public class Labyrinthe {
 
-	public int l, h; // L et H suffissent
+	public int l, h;
 	public Personnage joueur;
 	public ListeMuret liste;
-	public int sortie;		//Double
+	public int sortie;
 
 	public Labyrinthe(int largeur, int hauteur, double densité, int secondes, int vies){
 		l = largeur;
@@ -12,11 +12,13 @@ public class Labyrinthe {
 		// Position joueur 
 		int positiony;
 		positiony = (int) Math.ceil(Math.random() * hauteur-1);
-		sortie = (int) Math.ceil(Math.random() * hauteur);
+
+		// Position de la sortie
+		sortie = (int) Math.ceil(Math.random() * hauteur-1);
 
 		joueur = new Personnage( 0.5 , positiony+0.5 ,vies);
 
-		//System.out.println("positionx: "+ joueur.x + " positiony: "+ joueur.y  + " sortie: "+ sortie);
+		System.out.println("positionx: "+ joueur.x() + " positiony: "+ joueur.y()  + " sortie: "+ sortie);
 
 		liste = new ListeMuret();
 		// Position murets verticaux
@@ -71,7 +73,7 @@ public class Labyrinthe {
 					for (int xj = 0;xj<l;xj++) {
 
 						// Est-ce qu'on doit afficher un joueur
-						boolean caseJoueur = ((Math.floor(joueur.y) == y) && (Math.floor(joueur.x)==xj) && (v == 1));
+						boolean caseJoueur = ((Math.floor(joueur.y()) == y) && (Math.floor(joueur.x())==xj) && (v == 1));
 
 						// Est-ce qu'on doit afficher un mur
 						Muret a = new Muret(xj,y,false,true);

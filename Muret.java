@@ -1,7 +1,7 @@
 public class Muret{
 
-	int x, y;
-	boolean horizontal, visible;
+	private int x, y;
+	private boolean horizontal, visible;
 
 	public Muret(int x, int y, boolean horizontal, boolean visible){
 		this.x = x;
@@ -10,10 +10,15 @@ public class Muret{
 		this.visible = visible;
 	}
 
+	public int x(){return this.x;}
+	public int y(){return this.y;}
+	public boolean horizontal(){return this.horizontal;}
+	public boolean visible(){return this.visible;}
+
 	public boolean equals(Muret leMuret){
 		if (leMuret == null)
 			return false;
-		if(leMuret.x == this.x && leMuret.y == this.y && leMuret.horizontal == this.horizontal)
+		if(leMuret.x() == this.x && leMuret.y() == this.y && leMuret.horizontal() == this.horizontal)
 			return true;
 		return false;
 	}

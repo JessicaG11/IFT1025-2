@@ -9,6 +9,9 @@ public class Personnage{
 		this.vie = vie;
 	}
 
+	public double x(){return this.x;}	
+	public double y(){return this.y;}	
+
 	//public void dessine(Graphics g, int x1, int y1, int x2, int y2){
 		//À faire
 	//}

@@ -14,17 +14,17 @@ public class ListeMuret{
 	public void setVisibleMurets(boolean etat){ // True pour visible false pour invisible
 		NoeudMuret n = premier;
 		while(n!= null){
-			n.valeur.setVisible(etat);
-			n = n.prochain;
+			n.valeur().setVisible(etat);
+			n = n.prochain();
 		}
 	}
 	// Cherche à traver notre liste pour un muret
 	public Muret chercherMuret(Muret m) {
 		NoeudMuret n = premier;
-		while (n != null && !(n.valeur.equals(m))){
-			n = n.prochain;
+		while (n != null && !(n.valeur().equals(m))){
+			n = n.prochain();
 		}
-		return ((n == null)?(null):(n.valeur));
+		return ((n == null)?(null):(n.valeur()));
 	}
 
  	// Nous retourne la longueur de notre liste
@@ -35,7 +35,7 @@ public class ListeMuret{
 			return 0;
 		while(n!=null){
 			nb++;
-			n=n.prochain;
+			n=n.prochain();
 		}
 		return nb;
 	}
@@ -47,8 +47,8 @@ public class ListeMuret{
 			System.out.println("Vide");
 		else{
 			while (n != null){
-				System.out.println("x: " + n.valeur.x + " y: "+ n.valeur.y + " horizontal: " + n.valeur.horizontal);
-				n = n.prochain; 
+				System.out.println("x: " + n.valeur().x() + " y: "+ n.valeur().y() + " horizontal: " + n.valeur().horizontal());
+				n = n.prochain(); 
 			}
 		}
 	}
