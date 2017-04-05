@@ -1,9 +1,9 @@
 public class Labyrinthe {
 
-	public int l, h;
-	public Personnage joueur;
-	public ListeMuret liste;
-	public int sortie;
+	private int l, h;
+	private Personnage joueur;
+	private ListeMuret liste;
+	private int sortie;
 
 	public Labyrinthe(int largeur, int hauteur, double densité, int secondes, int vies){
 		l = largeur;
@@ -95,9 +95,33 @@ public class Labyrinthe {
 	}
 
 	public boolean deplace(char direction){
-		//À faire
-		return true;
+
+		switch (Character.toLowerCase(direction)) {
+			case 'd':
+				return deplacementValide(joueur.x(),joueur.y(),(joueur.x()+1.0),joueur.y());
+			case 'g': case 's':
+				return deplacementValide(joueur.x(),joueur.y(),(joueur.x()-1.0),joueur.y());
+			case 'h': case 'e':
+				return deplacementValide(joueur.x(),joueur.y(),joueur.x(),(joueur.y()-1.0));
+			case 'b': case 'x':
+				return deplacementValide(joueur.x(),joueur.y(),joueur.x(),(joueur.y()+1.0));
+			default: 
+				break;
+			
+		}
+		System.out.println("Mauvaise direction entrée, veuillez rééssayer.");
+		return false;
 	}
+	public boolean deplacementValide(double joueurX, double joueurY, double x, double y){
+		if (x < 0 || x>this.l ||y<0||y>this.h)
+			return false;
+		else{
+			joueur.setX(x);
+			joueur.setY(y);
+			return true;
+		}
+	}
+
 
 
 }
