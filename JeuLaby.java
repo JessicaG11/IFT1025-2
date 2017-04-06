@@ -1,10 +1,32 @@
 import java.util.Scanner;
+import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 public class JeuLaby{
 
 	private static boolean gameOver = false;
 	private static boolean hasMoved = false;
+	private JFrame frame = new JFrame();
+	private JPanel jp;
+	
+
+	public JeuLaby(Labyrinthe jeu) {
+		frame.setSize(300, 400);
+		frame.setTitle("Le jeu du Labyrinthe");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+		jp = new JPanelLAby(jeu);
+		frame.add(jp);
+		frame.pack();
+		frame.setVisible(true);
+	}
 
 	public static void main(String[] args) {
+		
+		
+		
+
 
 		if(args.length != 5) {
 			System.out.println("Nombre de paramètres incorrects.");
@@ -16,8 +38,11 @@ public class JeuLaby{
 		Scanner scan = new Scanner(System.in);
 
 		Labyrinthe jeu = new Labyrinthe(Integer.parseInt(args[0]),Integer.parseInt(args[1]),Double.parseDouble(args[2]),Integer.parseInt(args[3]),Integer.parseInt(args[4]));
+		
+		JeuLaby lol = new JeuLaby(jeu);
 
-		System.out.println(jeu.toString());
+		
+		//System.out.println(jeu.toString());
 
 		while(!gameOver){
 
@@ -34,10 +59,8 @@ public class JeuLaby{
 					System.out.println("Déplacement non valide!");
 			}
 
-
-			System.out.println(jeu.toString());
-
-
+			//System.out.println(jeu.toString());
+			// Caller repaint
 		}
 	}
 	

@@ -5,7 +5,15 @@ public class Labyrinthe {
 	private ListeMuret liste;
 	private int sortie;
 
-	public Labyrinthe(int largeur, int hauteur, double densité, int secondes, int vies){
+	public int getL(){ return l;}
+
+	public int getH(){ return h;}
+
+	public Personnage getJoueur(){ return joueur;}
+
+	public int getSortie(){ return sortie;}
+
+	public Labyrinthe(int largeur, int hauteur, double densite, int secondes, int vies){
 		l = largeur;
 		h = hauteur;
 
@@ -24,7 +32,7 @@ public class Labyrinthe {
 		// Position murets verticaux
 		for (int x = 1;x<l ;x++) {
 			for (int y=0;y<h ;y++) {
-				if(Math.random() < densité) {
+				if(Math.random() < densite) {
 					Muret a = new Muret(x,y,false,true);
 					liste.ajouteDebut(a);
 				}
@@ -33,7 +41,7 @@ public class Labyrinthe {
 		// Position murets horizontaux
 		for (int x = 0;x<l ;x++) {
 			for (int y=1;y<h ;y++) {
-				if(Math.random() < densité) {
+				if(Math.random() < densite) {
 					Muret a = new Muret(x,y,true,true);
 					liste.ajouteDebut(a);
 				}
