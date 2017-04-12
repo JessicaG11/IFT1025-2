@@ -1,24 +1,27 @@
 import java.util.Scanner;
 import java.awt.*;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
+import javax.swing.BoxLayout;
+
 public class JeuLaby{
 
 	private static boolean gameOver = false;
 	private static boolean hasMoved = false;
-	private JFrame frame = new JFrame();
-	private JPanel jp;
+	private JFrame frame;
+	
 	
 
 	public JeuLaby(Labyrinthe jeu) {
+		frame = new JFrame();
 		frame.setSize(300, 400);
 		frame.setTitle("Le jeu du Labyrinthe");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-		jp = new JPanelLAby(jeu);
+		JPanelLAby jp = new JPanelLAby(jeu);
 		frame.add(jp);
 		frame.pack();
+		frame.setMinimumSize(new Dimension(1400, 800));
 		frame.setVisible(true);
 	}
 

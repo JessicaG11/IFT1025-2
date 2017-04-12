@@ -9,7 +9,7 @@ public class AffichageLaby extends JComponent{
 
 
 	public AffichageLaby(Labyrinthe jeu){
-		this.setPreferredSize(new Dimension(1500, 700));	
+		this.setPreferredSize(new Dimension(1000, 500));	
 		laby = jeu;
 	}
 
