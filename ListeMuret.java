@@ -18,6 +18,8 @@ public class ListeMuret{
 			n = n.prochain();
 		}
 	}
+
+
 	// Cherche à traver notre liste pour un muret
 	public Muret chercherMuret(Muret m) {
 		NoeudMuret n = premier;

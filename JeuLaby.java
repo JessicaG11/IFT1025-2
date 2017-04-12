@@ -2,12 +2,15 @@ import java.util.Scanner;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.BoxLayout;
+import javax.swing.Timer;
+
 
 public class JeuLaby{
 
 	private static boolean gameOver = false;
 	private static boolean hasMoved = false;
 	private JFrame frame;
+	private JPanelLAby jp;
 	
 	
 
@@ -18,7 +21,7 @@ public class JeuLaby{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-		JPanelLAby jp = new JPanelLAby(jeu);
+		jp = new JPanelLAby(jeu);
 		frame.add(jp);
 		frame.pack();
 		frame.setMinimumSize(new Dimension(1400, 800));
@@ -43,6 +46,18 @@ public class JeuLaby{
 		Labyrinthe jeu = new Labyrinthe(Integer.parseInt(args[0]),Integer.parseInt(args[1]),Double.parseDouble(args[2]),Integer.parseInt(args[3]),Integer.parseInt(args[4]));
 		
 		JeuLaby lol = new JeuLaby(jeu);
+		
+		//LE TIMER!!!!
+		/*ActionListener tacheRepetitive = new ActionListener()
+		{
+		public void actionPerformed(ActionEvent e)
+		{
+		System.out.println("ALLO");
+		}
+		};
+		int delai = 1000; // millisecondes
+		Timer timer = new Timer(10, tacheRepetitive);
+		timer.start(); // lancer  */
 
 		
 		//System.out.println(jeu.toString());
@@ -62,7 +77,6 @@ public class JeuLaby{
 					System.out.println("Déplacement non valide!");
 			}
 
-			//System.out.println(jeu.toString());
 			// Caller repaint
 		}
 	}

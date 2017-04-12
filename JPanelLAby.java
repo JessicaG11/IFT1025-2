@@ -95,9 +95,6 @@ public class JPanelLAby extends JPanel{
 	//Le panel avec les boutons pour les murs
 	public  JPanel autres(JPanel panel){
 		JPanel autres = new JPanel();
-		/*autres.setLayout(
-   		 new BoxLayout(autres, BoxLayout.PAGE_AXIS)
-); */
 
 		autres.setLayout(new GridLayout( 4, 1));
 

@@ -13,6 +13,8 @@ public class Labyrinthe {
 
 	public int getSortie(){ return sortie;}
 
+	public ListeMuret getListe(){return liste;}
+
 	public Labyrinthe(int largeur, int hauteur, double densite, int secondes, int vies){
 		l = largeur;
 		h = hauteur;
@@ -33,7 +35,7 @@ public class Labyrinthe {
 		for (int x = 1;x<l ;x++) {
 			for (int y=0;y<h ;y++) {
 				if(Math.random() < densite) {
-					Muret a = new Muret(x,y,false,true);
+					Muret a = new Muret( x, y, false, false);
 					liste.ajouteDebut(a);
 				}
 			}
@@ -42,7 +44,7 @@ public class Labyrinthe {
 		for (int x = 0;x<l ;x++) {
 			for (int y=1;y<h ;y++) {
 				if(Math.random() < densite) {
-					Muret a = new Muret(x,y,true,true);
+					Muret a = new Muret( x, y, true, false);
 					liste.ajouteDebut(a);
 				}
 			}
