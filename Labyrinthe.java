@@ -1,23 +1,30 @@
+// Christophe Gagnier et Jessica Gauvin
+// Devoir 2
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*; 
+import javax.swing.BoxLayout;
+
 public class Labyrinthe {
 
 	private int l, h;
 	private Personnage joueur;
 	private ListeMuret liste;
 	private int sortie;
+	private int secondes;
+	private boolean gameOver = false;
 
 	public int getL(){ return l;}
-
 	public int getH(){ return h;}
-
 	public Personnage getJoueur(){ return joueur;}
-
 	public int getSortie(){ return sortie;}
-
 	public ListeMuret getListe(){return liste;}
+	public int getSecondes(){return secondes;}
 
 	public Labyrinthe(int largeur, int hauteur, double densite, int secondes, int vies){
 		l = largeur;
 		h = hauteur;
+		this.secondes = secondes;
 
 		// Position joueur 
 		int positiony;
@@ -49,9 +56,6 @@ public class Labyrinthe {
 				}
 			}
 		}
-
-		//System.out.println("Longueur liste: " + liste.longueur());
-
 		//liste.printMuret();
 	}
 
@@ -74,7 +78,6 @@ public class Labyrinthe {
 					boolean mur = a.equals(liste.chercherMuret(a));
 					out+=(((x==0)?"|":"") + (mur?muretH:blank) +((x==l-1)?"|":" "));
 				}
-				
 			}
 			out+="\n";
 			// Les case intérieur
@@ -98,7 +101,6 @@ public class Labyrinthe {
 					out+="\n";	
 				}
 			}
-			
 		}
 		return out;
 
@@ -123,13 +125,78 @@ public class Labyrinthe {
 		return false;
 	}
 	public boolean deplacementValide(double joueurX, double joueurY, double x, double y){
-		if (x < 0 || x>this.l ||y<0||y>this.h)
-			return false;
-		else{
-			joueur.setX(x);
-			joueur.setY(y);
+
+		if((Math.floor(joueurY) == sortie)&& x > this.l){
+			gameOver = true;
+			gameOver();
 			return true;
 		}
+
+		if (x < 0 || x>this.l ||y<0||y>this.h)
+			return false;
+
+		if(joueurY != y){ // Muret horizontal
+
+			int posMuretY = (int)(((y - joueurY)<0)?Math.ceil(y):Math.floor(y));
+			Muret a = new Muret((int)Math.floor(x),posMuretY,true,true);
+
+			boolean bloquer = a.equals(liste.chercherMuret(a));
+
+			if(bloquer){ // S'il y a mur, on l'affiche, puis on réduit les vies du joueur
+				liste.chercherMuret(a).setVisible(true);
+				joueur.setVie(joueur.getVie()-1);
+				gameOver();
+				return false;
+			}
+		}
+		if(joueurX != x){ // On vérifie la présence muret vertical
+
+			int posMuretX = (int)(((x - joueurX)<0)?Math.ceil(x):Math.floor(x));
+			Muret a = new Muret(posMuretX,(int)Math.floor(y),false,true);
+
+			boolean bloquer = a.equals(liste.chercherMuret(a));
+
+			if(bloquer){ // S'il y a mur, on l'affiche, puis on réduit les vies du joueur
+				liste.chercherMuret(a).setVisible(true);
+				joueur.setVie(joueur.getVie()-1);
+				gameOver();
+				return false;
+			}
+		}
+
+
+
+		// Si aucune des conditions n'as retourner false, on change position joueur et on le bouge
+		joueur.setX(x);
+		joueur.setY(y);
+		return true;
+	}
+
+	public void gameOver(){
+		if((joueur.getVie()<=0)|| gameOver){
+
+			Object[] options = { "Quitter", "Rejouer"};
+
+	        JPanel panel = new JPanel();
+	        panel.add(new JLabel("Partie terminé, "+(gameOver?"vous avez atteint la sortie! ":"vous n'avez plus de vies")));
+
+	        int result= JOptionPane.showOptionDialog(null, 
+	        			panel, 
+	        			"Game Over",
+		                JOptionPane.YES_NO_CANCEL_OPTION, 
+		                JOptionPane.PLAIN_MESSAGE,
+		                null, 
+		                options, 
+		                options[0]);
+	        if (result == JOptionPane.YES_OPTION){
+	            System.exit(0);
+	        }
+	        else if(result == JOptionPane.NO_OPTION){
+	        	// Rejouer
+	        }
+
+		}
+
 	}
 
 

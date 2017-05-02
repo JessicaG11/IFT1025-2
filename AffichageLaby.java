@@ -1,3 +1,5 @@
+// Christophe Gagnier et Jessica Gauvin
+// Devoir 2
 import javax.swing.*;
 import java.awt.*;
 
@@ -43,6 +45,7 @@ public class AffichageLaby extends JComponent{
 		g2.draw(box);
 		g2.fill(box);
 	}
+	
 
 	public void contourVertical(Graphics2D g2){								//Dessiner le contour vertical du labyrinthe
 		g2.setStroke(new BasicStroke(10));

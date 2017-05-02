@@ -1,3 +1,5 @@
+// Christophe Gagnier et Jessica Gauvin
+// Devoir 2
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*; 
@@ -6,9 +8,13 @@ import javax.swing.BoxLayout;
 public class JPanelLAby extends JPanel{
 	
 	private AffichageLaby map;
+	private Labyrinthe lab;
 	
 
 	public JPanelLAby(Labyrinthe jeu){						//On créé le Jpanel principal
+
+		lab = jeu;
+
 		JPanel panel = new JPanel (new BorderLayout ());
 		setLayout(new BorderLayout());
 		
@@ -19,15 +25,35 @@ public class JPanelLAby extends JPanel{
 		JButton c = new JButton("SUD");
 		c.setPreferredSize(new Dimension(80, 80));
 
+		JLabel labelVies = new JLabel("Nombre de vies restantes : "+ lab.getJoueur().getVie());
+
+
 		panel.add( b, BorderLayout.NORTH);							//
 		panel.add( map, BorderLayout.CENTER);						//On place le jeu au centre
 		panel.add( c, BorderLayout.SOUTH);							//On place le nombre de vie dans le bas
 		panel.add( mouvement(), BorderLayout.EAST);					//On place les boutons pour le déplacement à droite
 		panel.add( autres(panel), BorderLayout.WEST);				//On place les boutons pour les murs à gauche
+		
+		// J'ai remplacer le bouton NORTH, pour mettre le label
+		panel.add( labelVies, BorderLayout.NORTH);				
 
 		add(panel);
 
-		panel.setVisible(true); 
+		panel.setVisible(true);
+
+		// Timer
+
+		lab.getListe().setVisibleMurets(true); 						// On affiche les murets
+        map.repaint();
+
+		new java.util.Timer().schedule( 
+        	new java.util.TimerTask() {
+            	@Override
+            	public void run() {
+                	lab.getListe().setVisibleMurets(false);			// Après le nombre de secondes entrés on fait disparaitre les murets
+                	map.repaint();
+            	}
+        	} , lab.getSecondes() * 1000);
 	}
 
 	protected ImageIcon createImageIcon(String path, int longueur, int hauteur) {			//Créer et redimensionner un image
@@ -42,8 +68,6 @@ public class JPanelLAby extends JPanel{
 	}
 
 	
-
-
 	//Le panel avec les boutons de déplacements
 	public JPanel mouvement(){
 		JPanel mouvement = new JPanel(new BorderLayout());
@@ -65,25 +89,31 @@ public class JPanelLAby extends JPanel{
 
 		gauche.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               System.out.println("gauche");
+
+               lab.deplace('g');
+               map.repaint();
+
             }
         });
 
         droite.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("droite");
+                lab.deplace('d');
+                map.repaint();
             }
         });
 
         bas.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("bas");
+                lab.deplace('b');
+                map.repaint();
             }
         });
 
         haut.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("haut");
+                lab.deplace('h');
+                map.repaint();
             }
         });
 
@@ -110,25 +140,29 @@ public class JPanelLAby extends JPanel{
 
 		visibles.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               System.out.println("visibles");
+               lab.getListe().setVisibleMurets(true);
+               map.repaint();
             }
         });
 
         invisibles.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("invisibles");
+                lab.getListe().setVisibleMurets(false);
+                map.repaint();
             }
         });
 
         intelligence.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("intelligence");
+                map.repaint();
             }
         });
 
         nouvelle.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("nouvelle partie");
+                map.repaint();
             }
         });
 

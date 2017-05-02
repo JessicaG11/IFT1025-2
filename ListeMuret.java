@@ -1,3 +1,5 @@
+// Christophe Gagnier et Jessica Gauvin
+// Devoir 2
 public class ListeMuret{
 
 	public NoeudMuret premier;
@@ -18,7 +20,6 @@ public class ListeMuret{
 			n = n.prochain();
 		}
 	}
-
 
 	// Cherche à traver notre liste pour un muret
 	public Muret chercherMuret(Muret m) {
@@ -42,7 +43,7 @@ public class ListeMuret{
 		return nb;
 	}
 
-	// Print
+	// Fonction pour débug qui affiche les différents murets
 	public void printMuret() {
 		NoeudMuret n = premier;
 		if(premier == null)

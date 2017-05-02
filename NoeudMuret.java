@@ -1,3 +1,5 @@
+// Christophe Gagnier et Jessica Gauvin
+// Devoir 2
 public class NoeudMuret{
 	private Muret valeur;
 	private NoeudMuret prochain;

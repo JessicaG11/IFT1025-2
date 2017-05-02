@@ -1,3 +1,5 @@
+// Christophe Gagnier et Jessica Gauvin
+// Devoir 2
 public class Personnage{
 
 	public double x, y;
@@ -13,6 +15,8 @@ public class Personnage{
 	public double y(){return this.y;}
 	public void setX(double x){this.x = x;}	
 	public void setY(double y){this.y = y;}	
+	public void setVie(int vie){this.vie = vie;}
+	public int getVie(){return this.vie; }
 
 	//public void dessine(Graphics g, int x1, int y1, int x2, int y2){
 		//À faire

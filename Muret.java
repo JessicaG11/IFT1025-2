@@ -1,3 +1,5 @@
+// Christophe Gagnier et Jessica Gauvin
+// Devoir 2
 public class Muret{
 
 	private int x, y;
@@ -15,6 +17,7 @@ public class Muret{
 	public boolean horizontal(){return this.horizontal;}
 	public boolean visible(){return this.visible;}
 
+	// Compare deux objets de type Muret pour vérifier s'ils sont pareils
 	public boolean equals(Muret leMuret){
 		if (leMuret == null)
 			return false;
@@ -23,12 +26,12 @@ public class Muret{
 		return false;
 	}
 
-	public void setVisible(boolean etat) {
-		this.visible = etat;
-	}
+	public void setVisible(boolean etat) {this.visible = etat;}
 
 	public String toString(){
-		return ("x: "+x+ " y: " + y + " horizontal: " + horizontal+ " visible: " + visible);
+		return ("x: "+x+ " y: " + y + " horizontal: " + horizontal+ " ,visible: " + visible);
 	}
 
 }
+
+

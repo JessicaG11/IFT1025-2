@@ -1,3 +1,5 @@
+// Christophe Gagnier et Jessica Gauvin
+// Devoir 2
 import java.util.Scanner;
 import java.awt.*;
 import javax.swing.*;
@@ -30,10 +32,6 @@ public class JeuLaby{
 
 	public static void main(String[] args) {
 		
-		
-		
-
-
 		if(args.length != 5) {
 			System.out.println("Nombre de paramètres incorrects.");
 			System.out.println("Utilisation: java Laby <hauteur> <largeur> <densite> <duree visible> <nb vies>");
@@ -46,22 +44,10 @@ public class JeuLaby{
 		Labyrinthe jeu = new Labyrinthe(Integer.parseInt(args[0]),Integer.parseInt(args[1]),Double.parseDouble(args[2]),Integer.parseInt(args[3]),Integer.parseInt(args[4]));
 		
 		JeuLaby lol = new JeuLaby(jeu);
-		
-		//LE TIMER!!!!
-		/*ActionListener tacheRepetitive = new ActionListener()
-		{
-		public void actionPerformed(ActionEvent e)
-		{
-		System.out.println("ALLO");
-		}
-		};
-		int delai = 1000; // millisecondes
-		Timer timer = new Timer(10, tacheRepetitive);
-		timer.start(); // lancer  */
 
-		
 		//System.out.println(jeu.toString());
 
+		// Version console
 		while(!gameOver){
 
 			hasMoved = false;
@@ -71,13 +57,11 @@ public class JeuLaby{
 				String reponse = scan.nextLine();
 				if(reponse.length() == 1){
 					hasMoved = jeu.deplace(reponse.charAt(0));
-
 				}
 				else
 					System.out.println("Déplacement non valide!");
 			}
 
-			// Caller repaint
 		}
 	}
 	
