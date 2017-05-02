@@ -13,13 +13,16 @@ public class Labyrinthe {
 	private int sortie;
 	private int secondes;
 	private boolean gameOver = false;
+	private double densite;
 
+	public double getDensite(){return densite;}
 	public int getL(){ return l;}
 	public int getH(){ return h;}
 	public Personnage getJoueur(){ return joueur;}
 	public int getSortie(){ return sortie;}
 	public ListeMuret getListe(){return liste;}
 	public int getSecondes(){return secondes;}
+
 
 	public void setJoueurNord() { joueur.setY(joueur.y-1);}				//Set servant à déplacer le joueur pour l'intelligence artificielle
 	public void setJoueurEst() { joueur.setX(joueur.x+1);}
@@ -30,6 +33,7 @@ public class Labyrinthe {
 		l = largeur;
 		h = hauteur;
 		this.secondes = secondes;
+		this.densite = densite;
 
 		// Position joueur 
 		int positiony;
@@ -197,7 +201,7 @@ public class Labyrinthe {
 	            System.exit(0);
 	        }
 	        else if(result == JOptionPane.NO_OPTION){
-	        	// Rejouer
+	        	//À faire
 	        }
 
 		}

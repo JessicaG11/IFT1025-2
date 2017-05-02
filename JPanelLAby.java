@@ -7,10 +7,13 @@ import javax.swing.BoxLayout;
 
 public class JPanelLAby extends JPanel{
 	
+
 	private AffichageLaby map;
 	private Labyrinthe lab;
 	private int l,h,vie,secondes;
 	private double densite;
+	private JPanel panel;
+	private JLabel afficheVie;
 
 	
 
@@ -20,11 +23,18 @@ public class JPanelLAby extends JPanel{
 		this.l = lab.getL();
 		this.h = lab.getH();
 		this.vie = lab.getJoueur().getVie();
+		this.secondes = lab.getSecondes();
+		this.densite = lab.getDensite();
 
-		JPanel panel = new JPanel (new BorderLayout ());
+		panel = new JPanel (new BorderLayout ());
 		setLayout(new BorderLayout());
 		
 		this.map = new AffichageLaby(jeu);
+
+		afficheVie = new JLabel("Nombre de vies restantes : "+lab.getJoueur().getVie());
+		afficheVie.setPreferredSize(new Dimension(80, 80));
+		afficheVie.setHorizontalAlignment(SwingConstants.CENTER); 
+		//afficheVie.setText("LOL");
 
 		//JButton b = new JButton("NORTH");
 		
@@ -32,7 +42,7 @@ public class JPanelLAby extends JPanel{
 		c.setPreferredSize(new Dimension(80, 80));
 
 
-		panel.add( nombreDeVies(), BorderLayout.NORTH);							//
+		panel.add( afficheVie, BorderLayout.NORTH);							//
 		panel.add( map, BorderLayout.CENTER);						//On place le jeu au centre
 		panel.add( c, BorderLayout.SOUTH);							//On place le nombre de vie dans le bas
 		panel.add( mouvement(), BorderLayout.EAST);					//On place les boutons pour le déplacement à droite
@@ -97,12 +107,14 @@ public class JPanelLAby extends JPanel{
 		mouvement.add( bas, BorderLayout.SOUTH);
 		mouvement.add( haut, BorderLayout.NORTH);
 
+
 		gauche.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
-               lab.deplace('g');
-               map.repaint();
-
+            	lab.deplace('g');
+            	map.repaint();  
+            	afficheVie.setText("Nombre de vies restantes : "+lab.getJoueur().getVie());
+          		panel.repaint();
+             
             }
         });
 
@@ -110,6 +122,8 @@ public class JPanelLAby extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 lab.deplace('d');
                 map.repaint();
+                afficheVie.setText("Nombre de vies restantes : "+lab.getJoueur().getVie());
+          		panel.repaint();
             }
         });
 
@@ -117,6 +131,8 @@ public class JPanelLAby extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 lab.deplace('b');
                 map.repaint();
+                afficheVie.setText("Nombre de vies restantes : "+lab.getJoueur().getVie());
+          		panel.repaint();    
             }
         });
 
@@ -124,6 +140,8 @@ public class JPanelLAby extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 lab.deplace('h');
                 map.repaint();
+                afficheVie.setText("Nombre de vies restantes : "+lab.getJoueur().getVie());
+          		panel.repaint();
             }
         });
 
@@ -174,10 +192,8 @@ public class JPanelLAby extends JPanel{
         nouvelle.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             System.out.println("nouvelle partie");
-         
-            
-            String[] argument = new String[] {"2","2","0.4","5","10"};
-            JeuLaby.main(argument);											//À FAIRE FONCTIONNER
+         	lab = new Labyrinthe( l, h, densite, secondes, vie);
+            JeuLaby yo = new JeuLaby(lab);
             map.repaint();
             }
         });

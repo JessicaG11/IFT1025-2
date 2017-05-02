@@ -14,10 +14,6 @@ public class JeuLaby{
 	public JFrame frame;
 	private JPanelLAby jp;
 	public int l,h,vie;
-	
-	public void fermerFrame(){
-		frame.dispose();
-	}
 
 	public JeuLaby(Labyrinthe jeu) {
 		frame = new JFrame();

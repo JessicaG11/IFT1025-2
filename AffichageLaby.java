@@ -71,19 +71,6 @@ public class AffichageLaby extends JComponent{
 		g2.fillOval( (int)Math.round(joueur.x*x), (int)Math.round(joueur.y*y), getWidth()/75, getWidth()/75);
 	}
 
-	public void mursTous(Graphics2D g2, int x, int y){						//Dessiner tous les murs
-		ListeMuret liste = laby.getListe();
-		g2.setColor(Color.black);
-
-		NoeudMuret n = liste.premier;
-			
-		while(n != null ){
-			if(n.valeur().horizontal())
-				g2.drawLine( n.valeur().x()*x, n.valeur().y()*y, n.valeur().x()*x+x, n.valeur().y()*y);
-			else { g2.drawLine( n.valeur().x()*x, n.valeur().y()*y, n.valeur().x()*x, n.valeur().y()*y+y);}
-			n = n.prochain();
-		}
-	}	
 
 	public void mursVisibles(Graphics2D g2, int x, int y){			//Dessiner les murs visibles
 		ListeMuret liste = laby.getListe();
