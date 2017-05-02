@@ -9,33 +9,36 @@ public class JPanelLAby extends JPanel{
 	
 	private AffichageLaby map;
 	private Labyrinthe lab;
+	private int l,h,vie,secondes;
+	private double densite;
+
 	
 
 	public JPanelLAby(Labyrinthe jeu){						//On créé le Jpanel principal
 
 		lab = jeu;
+		this.l = lab.getL();
+		this.h = lab.getH();
+		this.vie = lab.getJoueur().getVie();
 
 		JPanel panel = new JPanel (new BorderLayout ());
 		setLayout(new BorderLayout());
 		
 		this.map = new AffichageLaby(jeu);
 
-		JButton b = new JButton("NORTH");
-		b.setPreferredSize(new Dimension(80, 80));
+		//JButton b = new JButton("NORTH");
+		
 		JButton c = new JButton("SUD");
 		c.setPreferredSize(new Dimension(80, 80));
 
-		JLabel labelVies = new JLabel("Nombre de vies restantes : "+ lab.getJoueur().getVie());
 
-
-		panel.add( b, BorderLayout.NORTH);							//
+		panel.add( nombreDeVies(), BorderLayout.NORTH);							//
 		panel.add( map, BorderLayout.CENTER);						//On place le jeu au centre
 		panel.add( c, BorderLayout.SOUTH);							//On place le nombre de vie dans le bas
 		panel.add( mouvement(), BorderLayout.EAST);					//On place les boutons pour le déplacement à droite
 		panel.add( autres(panel), BorderLayout.WEST);				//On place les boutons pour les murs à gauche
 		
-		// J'ai remplacer le bouton NORTH, pour mettre le label
-		panel.add( labelVies, BorderLayout.NORTH);				
+					
 
 		add(panel);
 
@@ -67,6 +70,13 @@ public class JPanelLAby extends JPanel{
     	else { return null; }
 	}
 
+	public JLabel nombreDeVies(){
+		JLabel nombreVie = new JLabel("Nombre de vies restantes : "+ lab.getJoueur().getVie());
+		nombreVie.setPreferredSize(new Dimension(80, 80));
+		nombreVie.setHorizontalAlignment(SwingConstants.CENTER); 
+		return nombreVie;
+
+	}
 	
 	//Le panel avec les boutons de déplacements
 	public JPanel mouvement(){
@@ -155,14 +165,20 @@ public class JPanelLAby extends JPanel{
         intelligence.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("intelligence");
+                AI yo = new AI(l, h, lab, map);
+                yo.bouge();
                 map.repaint();
             }
         });
 
         nouvelle.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("nouvelle partie");
-                map.repaint();
+            System.out.println("nouvelle partie");
+         
+            
+            String[] argument = new String[] {"2","2","0.4","5","10"};
+            JeuLaby.main(argument);											//À FAIRE FONCTIONNER
+            map.repaint();
             }
         });
 
@@ -171,5 +187,8 @@ public class JPanelLAby extends JPanel{
 		return autres;
 
 	}
+
+	//AI 
+
 
 }

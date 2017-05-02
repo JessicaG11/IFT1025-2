@@ -11,10 +11,13 @@ public class JeuLaby{
 
 	private static boolean gameOver = false;
 	private static boolean hasMoved = false;
-	private JFrame frame;
+	public JFrame frame;
 	private JPanelLAby jp;
+	public int l,h,vie;
 	
-	
+	public void fermerFrame(){
+		frame.dispose();
+	}
 
 	public JeuLaby(Labyrinthe jeu) {
 		frame = new JFrame();

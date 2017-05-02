@@ -21,6 +21,11 @@ public class Labyrinthe {
 	public ListeMuret getListe(){return liste;}
 	public int getSecondes(){return secondes;}
 
+	public void setJoueurNord() { joueur.setY(joueur.y-1);}				//Set servant à déplacer le joueur pour l'intelligence artificielle
+	public void setJoueurEst() { joueur.setX(joueur.x+1);}
+	public void setJoueurSud() { joueur.setY(joueur.y+1);}
+	public void setJoueurOuest() { joueur.setX(joueur.x-1);}
+
 	public Labyrinthe(int largeur, int hauteur, double densite, int secondes, int vies){
 		l = largeur;
 		h = hauteur;
