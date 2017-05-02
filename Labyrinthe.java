@@ -7,11 +7,9 @@ import javax.swing.BoxLayout;
 
 public class Labyrinthe {
 
-	private int l, h;
+	private int l, h, sortie, secondes, viesInitiales;
 	private Personnage joueur;
 	private ListeMuret liste;
-	private int sortie;
-	private int secondes;
 	private boolean gameOver = false;
 	private double densite;
 
@@ -34,6 +32,7 @@ public class Labyrinthe {
 		h = hauteur;
 		this.secondes = secondes;
 		this.densite = densite;
+		viesInitiales = vies;
 
 		// Position joueur 
 		int positiony;
@@ -187,7 +186,7 @@ public class Labyrinthe {
 			Object[] options = { "Quitter", "Rejouer"};
 
 	        JPanel panel = new JPanel();
-	        panel.add(new JLabel("Partie terminé, "+(gameOver?"vous avez atteint la sortie! ":"vous n'avez plus de vies")));
+	        panel.add(new JLabel("Partie terminé, "+(gameOver?"Bravo, vous êtes parvenu jusqu'à la sortie en commettant seulement "+(viesInitiales-joueur.getVie())+" erreurs.":"Vous avez perdu, vous avez épuisé vos "+viesInitiales+" vies!")));
 
 	        int result= JOptionPane.showOptionDialog(null, 
 	        			panel, 
