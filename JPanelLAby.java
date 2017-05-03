@@ -34,9 +34,6 @@ public class JPanelLAby extends JPanel{
 		afficheVie = new JLabel("Nombre de vies restantes : "+lab.getJoueur().getVie());
 		afficheVie.setPreferredSize(new Dimension(80, 80));
 		afficheVie.setHorizontalAlignment(SwingConstants.CENTER); 
-		//afficheVie.setText("LOL");
-
-		//JButton b = new JButton("NORTH");
 		
 		JButton c = new JButton("SUD");
 		c.setPreferredSize(new Dimension(80, 80));
@@ -184,7 +181,6 @@ public class JPanelLAby extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 System.out.println("intelligence");
                 AI yo = new AI(l, h, lab, map);
-                System.out.println(yo.toString());
                 yo.bouge();
                 map.repaint();
             }

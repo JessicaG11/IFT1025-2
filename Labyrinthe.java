@@ -22,7 +22,10 @@ public class Labyrinthe {
 	public int getSecondes(){return secondes;}
 
 
-	public void setJoueurNord() { joueur.setY(joueur.y-1);}				//Set servant à déplacer le joueur pour l'intelligence artificielle
+	public void setJoueurNord() { 
+		//System.out.println("Joueur vers le bas" + joueur.y-1);
+		joueur.setY(joueur.y-1);
+	}				//Set servant à déplacer le joueur pour l'intelligence artificielle
 	public void setJoueurEst() { joueur.setX(joueur.x+1);}
 	public void setJoueurSud() { joueur.setY(joueur.y+1);}
 	public void setJoueurOuest() { joueur.setX(joueur.x-1);}
@@ -126,13 +129,15 @@ public class Labyrinthe {
 			case 'b': case 'x':
 				return deplacementValide(joueur.x(),joueur.y(),joueur.x(),(joueur.y()+1.0));
 			default: 
-				break;
-			
+				break;	
 		}
 		System.out.println("Mauvaise direction entrée, veuillez rééssayer.");
 		return false;
 	}
 	public boolean deplacementValide(double joueurX, double joueurY, double x, double y){
+
+		if ((joueur.getVie()<=0)|| gameOver) 
+			return false;
 
 		if((Math.floor(joueurY) == sortie)&& x > this.l){
 			gameOver = true;
@@ -200,7 +205,7 @@ public class Labyrinthe {
 	            System.exit(0);
 	        }
 	        else if(result == JOptionPane.NO_OPTION){
-	        	//À faire
+	        	// Redo
 	        }
 
 		}
