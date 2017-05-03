@@ -1,5 +1,6 @@
 // Christophe Gagnier et Jessica Gauvin
 // Devoir 2
+import javax.swing.*;
 public class AI {
 	private int[][] plan;
 	private Labyrinthe lab;
@@ -113,41 +114,63 @@ public class AI {
 		    Thread.currentThread().interrupt();
 		}
 
-		if( (y == lab.getSortie()*2) && (x == lar-1) )
+		if( (y == lab.getSortie()*2+1) && (x == lar-1) )
 			return;
 
 		if((y-2 >0) && plan[y-2][x] == 3 && plan[y-1][x] == 3){
 			plan[y-2][x] = 0;
 			lab.deplace('h');
-			//lab.setJoueurNord();
 			map.repaint();
-			deplacement(x, y-2);
-			
-			
+			try {
+			    Thread.sleep(10000);
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
+
+			System.out.println(lab);
+
+			deplacement(x, y-2);			
 		}
 		if((x+2 <lar) && plan[y][x+2] == 3 && plan[y][x+1] == 3){
 			plan[y][x+2] = 0;
 			plan[y][x+1] = 0;
 			lab.deplace('d');
-			//lab.setJoueurEst();
 			map.repaint();
-			deplacement(x+2, y);
+			try {
+			    Thread.sleep(10000);
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
+			System.out.println(lab);
 
+			deplacement(x+2, y);
 		}
 		if((y+2 <haut) && plan[y+2][x] == 3 && plan[y+1][x] == 3){
 			plan[y+2][x] = 0;
 			lab.deplace('b');
-			//lab.setJoueurSud();
 			map.repaint();
+			try {
+			    Thread.sleep(10000);
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
+			System.out.println(lab);
+
 			deplacement(x, y+2);
 		}
 		if((x-2 >0) && plan[y][x-2] == 3 && plan[y][x-1] == 3){
 			plan[y][x-2] = 0;
-			//lab.setJoueurOuest();
 			lab.deplace('g');
 			map.repaint();
-			deplacement(x-2, y);
+			try {
+			    Thread.sleep(10000);
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
 
+			System.out.println(lab);
+
+			deplacement(x-2, y);
 		}
 	}
 
