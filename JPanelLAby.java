@@ -184,6 +184,7 @@ public class JPanelLAby extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 System.out.println("intelligence");
                 AI yo = new AI(l, h, lab, map);
+                System.out.println(yo.toString());
                 yo.bouge();
                 map.repaint();
             }

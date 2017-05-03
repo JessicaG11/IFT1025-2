@@ -1,3 +1,5 @@
+// Christophe Gagnier et Jessica Gauvin
+// Devoir 2
 public class AI {
 	private int[][] plan;
 	private Labyrinthe lab;
@@ -5,6 +7,7 @@ public class AI {
 	private AffichageLaby map;
 
 	public AI(int l, int h, Labyrinthe lab, AffichageLaby map){
+
 		this.lab = lab; 
 		this.map = map;
 
@@ -46,6 +49,8 @@ public class AI {
 	}
 
 		public boolean parcours(int x, int y){
+		if (x < 0 || x>=lar ||y<0||y>=haut)
+			return false;
 		if(plan[y][x] == -1)		
 			return false;
 		if(plan[y][x] == 1)
@@ -64,13 +69,18 @@ public class AI {
 	}
 
 	public void bouge(){
+		System.out.println("Début de bouge");
+
 		int joueurX = (int)((lab.getJoueur().x)*2);
 		int joueurY = (int)((lab.getJoueur().y)*2);
+
+		System.out.println("Position: "+ joueurX + "," + joueurY);
+		System.out.println(this.toString());
 
 		if(!(parcours( joueurX , joueurY )))
 			System.out.print("LOOSER");
 		else{
-			while( (joueurY != lab.getSortie()*2) && (joueurX != lar) )
+			while( (joueurY != lab.getSortie()*2) && (joueurX != lar-1) )
 				deplacement(joueurX, joueurY);
 		}
 	}
@@ -101,7 +111,19 @@ public class AI {
 			deplacement(x-2, y);
 			map.repaint();
 		}
+	}
 
+	public String toString(){
 
+		String out = "";
+
+		for (int i = 0; i<haut;i++) {
+			String line = "";
+			for (int j = 0;j<lar ;j++ ) {
+				line+=plan[i][j]+"";
+			}
+			out+=line+"\n";
+		}
+		return out;
 	}
 }
