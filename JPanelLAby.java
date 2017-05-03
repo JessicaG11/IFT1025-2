@@ -9,13 +9,17 @@ public class JPanelLAby extends JPanel{
 	
 
 	private AffichageLaby map;
-	private Labyrinthe lab;
+	public Labyrinthe lab;
 	private int l,h,vie,secondes;
 	private double densite;
 	private JPanel panel;
 	private JLabel afficheVie;
+	private JPanelLAby ici;
 
-	
+	public void setMap(){
+		map.repaint();
+		System.out.println("APPEL DE REPAINT");
+	}
 
 	public JPanelLAby(Labyrinthe jeu){						//On créé le Jpanel principal
 
@@ -64,6 +68,8 @@ public class JPanelLAby extends JPanel{
                 	map.repaint();
             	}
         	} , lab.getSecondes() * 1000);
+
+		ici = this;
 	}
 
 	protected ImageIcon createImageIcon(String path, int longueur, int hauteur) {			//Créer et redimensionner un image
@@ -180,6 +186,8 @@ public class JPanelLAby extends JPanel{
         intelligence.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("intelligence");
+                lab.getListe().setVisibleMurets(true);
+                map.repaint();
                 AI yo = new AI(l, h, lab, map);
                 yo.bouge();
                 map.repaint();

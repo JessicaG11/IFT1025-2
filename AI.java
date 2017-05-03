@@ -8,7 +8,6 @@ public class AI {
 	private AffichageLaby map;
 
 	public AI(int l, int h, Labyrinthe lab, AffichageLaby map){
-
 		this.lab = lab; 
 		this.map = map;
 
@@ -59,14 +58,9 @@ public class AI {
 
 		System.out.println("On est rendu en: "+x+","+y);
 		System.out.println(toString());
-		/*
-		try {
-		    Thread.sleep(1000);
-		} catch(InterruptedException ex) {
-		    Thread.currentThread().interrupt();
-		}*/
+	
 
-		if (x < 0 || x>=lar ||(y<0)|| (y>=haut)) 		// Out of bounds
+		if (x < 0 || x>=lar ||(y<0)|| (y>=haut)) 		
 			return false;
 		if(plan[y][x] == 1) 							// Si on a trouver sortie labyrinthe
 			return true;
@@ -106,26 +100,32 @@ public class AI {
 	}
 
 	public void deplacement(int x, int y){
+		
 		System.out.println("Phase déplacement en : "+x+","+y);
-
-		try {
-		    Thread.sleep(1000);
-		} catch(InterruptedException ex) {
-		    Thread.currentThread().interrupt();
-		}
+		
+		new java.util.Timer().schedule( 
+        	new java.util.TimerTask() {
+            	@Override
+            	public void run() {
+			
 
 		if( (y == lab.getSortie()*2+1) && (x == lar-1) )
 			return;
 
 		if((y-2 >0) && plan[y-2][x] == 3 && plan[y-1][x] == 3){
 			plan[y-2][x] = 0;
+			plan[y-1][x] = 0;
+			
 			lab.deplace('h');
 			map.repaint();
-			try {
-			    Thread.sleep(10000);
-			} catch(InterruptedException ex) {
-			    Thread.currentThread().interrupt();
-			}
+			new java.util.Timer().schedule( 
+        	new java.util.TimerTask() {
+            	@Override
+            	public void run() {
+				}
+        	} , 10000);
+
+
 
 			System.out.println(lab);
 
@@ -134,44 +134,63 @@ public class AI {
 		if((x+2 <lar) && plan[y][x+2] == 3 && plan[y][x+1] == 3){
 			plan[y][x+2] = 0;
 			plan[y][x+1] = 0;
-			lab.deplace('d');
-			map.repaint();
-			try {
-			    Thread.sleep(10000);
-			} catch(InterruptedException ex) {
-			    Thread.currentThread().interrupt();
-			}
-			System.out.println(lab);
 
+			
+			lab.deplace('d');
+				map.repaint();
+			new java.util.Timer().schedule( 
+        	new java.util.TimerTask() {
+            	@Override
+            	public void run() {
+				}
+        	} , 10000);
+
+
+			System.out.println(lab);
 			deplacement(x+2, y);
 		}
 		if((y+2 <haut) && plan[y+2][x] == 3 && plan[y+1][x] == 3){
 			plan[y+2][x] = 0;
+			plan[y+1][x] = 0;
+			
+			
 			lab.deplace('b');
 			map.repaint();
-			try {
-			    Thread.sleep(10000);
-			} catch(InterruptedException ex) {
-			    Thread.currentThread().interrupt();
-			}
-			System.out.println(lab);
 
+			new java.util.Timer().schedule( 
+        	new java.util.TimerTask() {
+            	@Override
+            	public void run() {
+			
+				}
+        	} , 10000);
+				
+
+				System.out.println(lab);
 			deplacement(x, y+2);
 		}
 		if((x-2 >0) && plan[y][x-2] == 3 && plan[y][x-1] == 3){
 			plan[y][x-2] = 0;
+			plan[y][x-1] = 0;
+					
+
+			
 			lab.deplace('g');
 			map.repaint();
-			try {
-			    Thread.sleep(10000);
-			} catch(InterruptedException ex) {
-			    Thread.currentThread().interrupt();
-			}
+			new java.util.Timer().schedule( 
+        	new java.util.TimerTask() {
+            	@Override
+            	public void run() {
+			
+				}
+        	} , 10000);
 
 			System.out.println(lab);
-
 			deplacement(x-2, y);
 		}
+		
+            	}
+        	} , 1000);
 	}
 
 	public String toString(){

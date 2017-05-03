@@ -13,6 +13,7 @@ public class AffichageLaby extends JComponent{
 
 	public void paintComponent(Graphics g){
 		
+		
 		//Les dimensions
 		int casex = getWidth()/laby.getL(); 
 		int casey = getHeight()/laby.getH();
