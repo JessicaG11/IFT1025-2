@@ -5,6 +5,7 @@ public class Muret{
 	private int x, y;
 	private boolean horizontal, visible;
 
+	// Le constructeur pour initialiser nos paramètres
 	public Muret(int x, int y, boolean horizontal, boolean visible){
 		this.x = x;
 		this.y = y;
@@ -12,6 +13,7 @@ public class Muret{
 		this.visible = visible;
 	}
 
+	// Get
 	public int x(){return this.x;}
 	public int y(){return this.y;}
 	public boolean horizontal(){return this.horizontal;}
@@ -25,13 +27,8 @@ public class Muret{
 			return true;
 		return false;
 	}
-
+	// Set
 	public void setVisible(boolean etat) {this.visible = etat;}
-
-	public String toString(){
-		return ("x: "+x+ " y: " + y + " horizontal: " + horizontal+ " ,visible: " + visible);
-	}
-
 }
 
 

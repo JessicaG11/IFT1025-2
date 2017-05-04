@@ -7,12 +7,14 @@ import javax.swing.BoxLayout;
 
 public class Labyrinthe {
 
+	// Nos parametres
 	private int l, h, sortie, secondes, viesInitiales;
 	private Personnage joueur;
 	private ListeMuret liste;
 	private boolean gameOver = false;
 	private double densite;
 
+	// Get
 	public double getDensite(){return densite;}
 	public int getL(){ return l;}
 	public int getH(){ return h;}
@@ -20,15 +22,6 @@ public class Labyrinthe {
 	public int getSortie(){ return sortie;}
 	public ListeMuret getListe(){return liste;}
 	public int getSecondes(){return secondes;}
-
-
-	public void setJoueurNord() { 
-		//System.out.println("Joueur vers le bas" + joueur.y-1);
-		joueur.setY(joueur.y-1);
-	}				//Set servant à déplacer le joueur pour l'intelligence artificielle
-	public void setJoueurEst() { joueur.setX(joueur.x+1);}
-	public void setJoueurSud() { joueur.setY(joueur.y+1);}
-	public void setJoueurOuest() { joueur.setX(joueur.x-1);}
 
 	public Labyrinthe(int largeur, int hauteur, double densite, int secondes, int vies){
 		l = largeur;
@@ -45,8 +38,6 @@ public class Labyrinthe {
 		sortie = (int) Math.ceil(Math.random() * hauteur-1);
 
 		joueur = new Personnage( 0.5 , positiony+0.5 ,vies);
-
-		System.out.println("positionx: "+ joueur.x() + " positiony: "+ joueur.y()  + " sortie: "+ sortie);
 
 		liste = new ListeMuret();
 		// Position murets verticaux
@@ -67,9 +58,8 @@ public class Labyrinthe {
 				}
 			}
 		}
-		//liste.printMuret();
 	}
-
+	// Affichage dans la console de notre labyrinthe
 	public String toString(){
 
 		String muretH = "-------";
@@ -117,6 +107,7 @@ public class Labyrinthe {
 
 	}
 
+	// Fait des appels à la fonction deplacement valide pour vérifier si on peut déplacer le joueur
 	public boolean deplace(char direction){
 
 		switch (Character.toLowerCase(direction)) {
@@ -134,12 +125,13 @@ public class Labyrinthe {
 		System.out.println("Mauvaise direction entrée, veuillez rééssayer.");
 		return false;
 	}
+	// Vérifie si le déplacement est valide
 	public boolean deplacementValide(double joueurX, double joueurY, double x, double y){
 
 		if ((joueur.getVie()<=0)|| gameOver) 
 			return false;
 
-		if((Math.floor(joueurY) == sortie)&& x > this.l){
+		if((Math.floor(joueurY) == sortie)  && x >= this.l){
 			gameOver = true;
 			gameOver();
 			return true;
@@ -177,21 +169,33 @@ public class Labyrinthe {
 			}
 		}
 
-
-
 		// Si aucune des conditions n'as retourner false, on change position joueur et on le bouge
 		joueur.setX(x);
 		joueur.setY(y);
 		return true;
 	}
 
+	// Vérifie si la partie est terminé, et si oui crée un popup
 	public void gameOver(){
-		if((joueur.getVie()<=0)|| gameOver){
+
+		if((joueur.getVie()<=0)|| gameOver)
+			creePopup("Partie terminé, "+(gameOver?"Bravo, vous êtes parvenu jusqu'à la sortie en commettant seulement "+(viesInitiales-joueur.getVie())+" erreurs.":"Vous avez perdu, vous avez épuisé vos "+viesInitiales+" vies!"));
+
+	}
+
+	// Notre fonction qui crée un pop-up pour avertir que l'IA n'a pas trouver de chemin
+	public void aucuneSolution() {
+
+			creePopup("Aucune solution possible, voulez-vous recommencer ou quitter?");
+	}
+
+	// Permet de crée un popup avec le text desiré, offre la possibilité de quitter le jeu, ou faire nouvelle partie
+	public void creePopup(String text){
 
 			Object[] options = { "Quitter", "Rejouer"};
 
 	        JPanel panel = new JPanel();
-	        panel.add(new JLabel("Partie terminé, "+(gameOver?"Bravo, vous êtes parvenu jusqu'à la sortie en commettant seulement "+(viesInitiales-joueur.getVie())+" erreurs.":"Vous avez perdu, vous avez épuisé vos "+viesInitiales+" vies!")));
+	        panel.add(new JLabel(text));
 
 	        int result= JOptionPane.showOptionDialog(null, 
 	        			panel, 
@@ -204,14 +208,12 @@ public class Labyrinthe {
 	        if (result == JOptionPane.YES_OPTION){
 	            System.exit(0);
 	        }
-	        else if(result == JOptionPane.NO_OPTION){
-	        	// Redo
+	        else if(result == JOptionPane.NO_OPTION){	// On crée un nouveau labyrinthe
+	        	Labyrinthe lab = new Labyrinthe( l, h, densite, secondes, viesInitiales);
+            	JeuLaby yo = new JeuLaby(lab);
+
 	        }
 
-		}
-
 	}
-
-
 
 }

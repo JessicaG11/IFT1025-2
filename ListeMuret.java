@@ -43,7 +43,7 @@ public class ListeMuret{
 		return nb;
 	}
 
-	// Fonction pour débug qui affiche les différents murets
+	// Fonction pour debug qui affiche les différents murets
 	public void printMuret() {
 		NoeudMuret n = premier;
 		if(premier == null)

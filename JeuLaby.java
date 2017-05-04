@@ -6,14 +6,14 @@ import javax.swing.*;
 import javax.swing.BoxLayout;
 import javax.swing.Timer;
 
-
 public class JeuLaby{
 
 	private static boolean gameOver = false;
 	private static boolean hasMoved = false;
 	public JFrame frame;
-	private JPanelLAby jp;
+	private static JPanelLAby jp;
 	public int l,h,vie;
+
 
 	public JeuLaby(Labyrinthe jeu) {
 		frame = new JFrame();
@@ -38,24 +38,29 @@ public class JeuLaby{
 			System.exit(0);
 		}
 
-		Scanner scan = new Scanner(System.in);
-
 		Labyrinthe jeu = new Labyrinthe(Integer.parseInt(args[0]),Integer.parseInt(args[1]),Double.parseDouble(args[2]),Integer.parseInt(args[3]),Integer.parseInt(args[4]));
 		
+		// Version Swing 
 		JeuLaby lol = new JeuLaby(jeu);
 
-		//System.out.println(jeu.toString());
-
 		// Version console
+		Scanner scan = new Scanner(System.in);
+
+		// Tant que le jeu n'est pas terminé, on demande des directions
 		while(!gameOver){
 
 			hasMoved = false;
+			System.out.println(jeu);
 
+			// Tant que notre joueur n'a pas bouger, on redemande dans quel direction il veut aller
 			while(!hasMoved){
 				System.out.println("Quelle direction voulez-vous allez? ");
 				String reponse = scan.nextLine();
 				if(reponse.length() == 1){
 					hasMoved = jeu.deplace(reponse.charAt(0));
+					jp.getPanel().repaint();
+					jp.getLabelVie().setText("Nombre de vies restantes : "+jeu.getJoueur().getVie());
+					jp.getAffichage().repaint();
 				}
 				else
 					System.out.println("Déplacement non valide!");

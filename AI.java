@@ -21,19 +21,18 @@ public class AI {
 				plan[i][j] = 0;
 			}
 		}
-		// On bloque les intersections
-		for(int i=0; i<haut; i+=2){
+
+		for(int i=0; i<haut; i+=2){						// On bloque les intersections
 			for(int j=0; j<lar; j+=2){
 				plan[i][j] = -1;
 			}
 		}
 
-		for( int i=0; i<lar; i++){							//initialise contour
+		for( int i=0; i<lar; i++){						//initialise contour
 			plan[0][i] = -1;
 			plan[haut-1][i] = -1;
 			
 		}
-
 
 		for( int i=0; i<haut; i++){
 			plan[i][0] = -1;
@@ -43,7 +42,7 @@ public class AI {
 		ListeMuret liste = lab.getListe();
 		NoeudMuret n = liste.premier;
 			
-		while(n != null ){										//initialise mur
+		while(n != null ){								//initialise mur
 			if(n.valeur().horizontal())
 				plan[n.valeur().y()*2][(n.valeur().x()*2)+1] = -1;
 			else { plan[(n.valeur().y()*2)+1][n.valeur().x()*2] = -1;}
@@ -55,10 +54,6 @@ public class AI {
 	}
 
 		public boolean parcours(int x, int y){
-
-		System.out.println("On est rendu en: "+x+","+y);
-		System.out.println(toString());
-	
 
 		if (x < 0 || x>=lar ||(y<0)|| (y>=haut)) 		
 			return false;
@@ -82,119 +77,78 @@ public class AI {
 		return false;
 	}
 
+	// Début de notre IA, va tenter un parcours, s'il n'en trouve pas, on affiche message erreur, sinon on déplace le joueur
 	public void bouge(){
-		System.out.println("Début de bouge");
 
 		int joueurX = (int)((lab.getJoueur().x)*2);
 		int joueurY = (int)((lab.getJoueur().y)*2);
 
-		System.out.println("Position: "+ joueurX + "," + joueurY);
-		System.out.println(this.toString());
-
-		if(!(parcours( joueurX , joueurY )))
-			System.out.print("LOOSER");
+		if(!(parcours( joueurX , joueurY ))) // Si le chemin est impossible, on averti le joueur et lui propose de recommencer
+			lab.aucuneSolution();
 		else{
-			//while( (joueurY != lab.getSortie()*2) && (joueurX != lar-1) )
 			deplacement(joueurX, joueurY);
 		}
 	}
 
+	// Déplace le joueur sur la graphique en avec un temps d'attente entre les mouvements de 1 secondes
 	public void deplacement(int x, int y){
-		
-		System.out.println("Phase déplacement en : "+x+","+y);
 		
 		new java.util.Timer().schedule( 
         	new java.util.TimerTask() {
             	@Override
             	public void run() {
 			
-
-		if( (y == lab.getSortie()*2+1) && (x == lar-1) )
-			return;
-
-		if((y-2 >0) && plan[y-2][x] == 3 && plan[y-1][x] == 3){
-			plan[y-2][x] = 0;
-			plan[y-1][x] = 0;
-			
-			lab.deplace('h');
-			map.repaint();
-			new java.util.Timer().schedule( 
-        	new java.util.TimerTask() {
-            	@Override
-            	public void run() {
+				if( (y == lab.getSortie()*2+1) && (x == lar-2) ){  	// Quand le joueur est rendu vis-à-vis la sortie, on le fin sortir et met fin à la fonction
+					lab.deplace('d');
+					return;
 				}
-        	} , 10000);
-
-
-
-			System.out.println(lab);
-
-			deplacement(x, y-2);			
-		}
-		if((x+2 <lar) && plan[y][x+2] == 3 && plan[y][x+1] == 3){
-			plan[y][x+2] = 0;
-			plan[y][x+1] = 0;
-
-			
-			lab.deplace('d');
-				map.repaint();
-			new java.util.Timer().schedule( 
-        	new java.util.TimerTask() {
-            	@Override
-            	public void run() {
-				}
-        	} , 10000);
-
-
-			System.out.println(lab);
-			deplacement(x+2, y);
-		}
-		if((y+2 <haut) && plan[y+2][x] == 3 && plan[y+1][x] == 3){
-			plan[y+2][x] = 0;
-			plan[y+1][x] = 0;
-			
-			
-			lab.deplace('b');
-			map.repaint();
-
-			new java.util.Timer().schedule( 
-        	new java.util.TimerTask() {
-            	@Override
-            	public void run() {
-			
-				}
-        	} , 10000);
-				
-
-				System.out.println(lab);
-			deplacement(x, y+2);
-		}
-		if((x-2 >0) && plan[y][x-2] == 3 && plan[y][x-1] == 3){
-			plan[y][x-2] = 0;
-			plan[y][x-1] = 0;
+				// Direction Nord
+				if((y-2 >0) && plan[y-2][x] == 3 && plan[y-1][x] == 3){
+					plan[y-2][x] = 0;
+					plan[y-1][x] = 0;
 					
+					lab.deplace('h');
+					map.repaint();
 
-			
-			lab.deplace('g');
-			map.repaint();
-			new java.util.Timer().schedule( 
-        	new java.util.TimerTask() {
-            	@Override
-            	public void run() {
-			
+					deplacement(x, y-2);			
 				}
-        	} , 10000);
+				// Direction Est		
+				if((x+2 <lar) && plan[y][x+2] == 3 && plan[y][x+1] == 3){
+					plan[y][x+2] = 0;
+					plan[y][x+1] = 0;
 
-			System.out.println(lab);
-			deplacement(x-2, y);
-		}
+					lab.deplace('d');
+					map.repaint();
+
+					deplacement(x+2, y);
+				}
+				// Direction Sud
+				if((y+2 <haut) && plan[y+2][x] == 3 && plan[y+1][x] == 3){
+					plan[y+2][x] = 0;
+					plan[y+1][x] = 0;
+					
+					lab.deplace('b');
+					map.repaint();
+
+					deplacement(x, y+2);
+				}
+				// Direction Ouest
+				if((x-2 >0) && plan[y][x-2] == 3 && plan[y][x-1] == 3){
+					plan[y][x-2] = 0;
+					plan[y][x-1] = 0;
+							
+					lab.deplace('g');
+					map.repaint();
+
+					deplacement(x-2, y);
+				}
 		
             	}
         	} , 1000);
 	}
 
+	// Méthode utile pour debug, permet afficher le comportement de notre AI
 	public String toString(){
-
 		String out = "";
 
 		for (int i = 0; i<haut;i++) {

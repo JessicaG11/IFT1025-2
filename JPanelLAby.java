@@ -7,21 +7,21 @@ import javax.swing.BoxLayout;
 
 public class JPanelLAby extends JPanel{
 	
-
 	private AffichageLaby map;
 	public Labyrinthe lab;
 	private int l,h,vie,secondes;
 	private double densite;
 	private JPanel panel;
 	private JLabel afficheVie;
+	private JLabel instructions;
 	private JPanelLAby ici;
 
-	public void setMap(){
-		map.repaint();
-		System.out.println("APPEL DE REPAINT");
-	}
+	// Get
+	public JPanel getPanel(){return panel;}
+	public AffichageLaby getAffichage(){return map;}
+	public JLabel getLabelVie(){return afficheVie;}
 
-	public JPanelLAby(Labyrinthe jeu){						//On créé le Jpanel principal
+	public JPanelLAby(Labyrinthe jeu){								//On créé le Jpanel principal
 
 		lab = jeu;
 		this.l = lab.getL();
@@ -35,28 +35,27 @@ public class JPanelLAby extends JPanel{
 		
 		this.map = new AffichageLaby(jeu);
 
+		// Label pour notre nombre de vies
 		afficheVie = new JLabel("Nombre de vies restantes : "+lab.getJoueur().getVie());
 		afficheVie.setPreferredSize(new Dimension(80, 80));
 		afficheVie.setHorizontalAlignment(SwingConstants.CENTER); 
-		
-		JButton c = new JButton("SUD");
-		c.setPreferredSize(new Dimension(80, 80));
 
+		// Label pour nos instructions
+		instructions = new JLabel("Les commandes de déplacement pour la console sont les suivantes: H ou E: Haut, X ou B: Bas, S ou G: Gauche, D: Droite ");
+		instructions.setPreferredSize(new Dimension(160,80));
+		instructions.setHorizontalAlignment(SwingConstants.CENTER);
 
-		panel.add( afficheVie, BorderLayout.NORTH);							//
+		panel.add( afficheVie, BorderLayout.NORTH);					//On place le label des vies
 		panel.add( map, BorderLayout.CENTER);						//On place le jeu au centre
-		panel.add( c, BorderLayout.SOUTH);							//On place le nombre de vie dans le bas
+		panel.add( instructions, BorderLayout.SOUTH);				//On place le nombre de vie dans le bas
 		panel.add( mouvement(), BorderLayout.EAST);					//On place les boutons pour le déplacement à droite
 		panel.add( autres(panel), BorderLayout.WEST);				//On place les boutons pour les murs à gauche
 		
-					
-
 		add(panel);
 
 		panel.setVisible(true);
 
 		// Timer
-
 		lab.getListe().setVisibleMurets(true); 						// On affiche les murets
         map.repaint();
 
@@ -169,6 +168,7 @@ public class JPanelLAby extends JPanel{
 		autres.add( intelligence, BorderLayout.SOUTH);
 		autres.add( nouvelle, BorderLayout.NORTH);
 
+		// Rend nos mur visible quand on clique sur bouton
 		visibles.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                lab.getListe().setVisibleMurets(true);
@@ -176,6 +176,7 @@ public class JPanelLAby extends JPanel{
             }
         });
 
+		// Rend nos mur invisible quand on clique sur bouton
         invisibles.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 lab.getListe().setVisibleMurets(false);
@@ -183,9 +184,9 @@ public class JPanelLAby extends JPanel{
             }
         });
 
+        // bouton qui active l'intelligence artificielle
         intelligence.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("intelligence");
                 lab.getListe().setVisibleMurets(true);
                 map.repaint();
                 AI yo = new AI(l, h, lab, map);
@@ -194,9 +195,9 @@ public class JPanelLAby extends JPanel{
             }
         });
 
+        // Notre bouton de nouvelle partie
         nouvelle.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            System.out.println("nouvelle partie");
          	lab = new Labyrinthe( l, h, densite, secondes, vie);
             JeuLaby yo = new JeuLaby(lab);
             map.repaint();

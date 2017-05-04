@@ -4,6 +4,7 @@ public class NoeudMuret{
 	private Muret valeur;
 	private NoeudMuret prochain;
 
+	// Constructeur qui initialise notre objet
 	public NoeudMuret(Muret v, NoeudMuret p){
 		valeur = v;
 		prochain = p;
